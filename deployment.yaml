@@ -1,0 +1,22 @@
+name: cds_poll
+
+services:
+  streamlit:
+    image: python:latest
+    ports: "8080:8080"
+    network: polling_network
+    depends_on: database
+
+  database:
+    image: postgres
+    volumes: polling_data
+    environment:
+      POSTGRES_USER: _
+      POSTGRES_DB: _
+
+networks:
+  polling_network:
+
+volumes:
+  polling_data:
+  
