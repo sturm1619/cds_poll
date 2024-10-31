@@ -3,20 +3,22 @@ name: cds_poll
 services:
   streamlit:
     image: python:latest
-    ports: "8080:8080"
-    network: polling_network
-    depends_on: database
+    ports: 
+    - "8080:8080"
+    networks: 
+    - polling_network
+    depends_on: 
+    - database
 
   database:
     image: postgres
-    volumes: polling_data
+    volumes: 
+    - ./backend/:/usr/src/ # I gotta check up postgres specs
+    ports: 
+    - "5432:5432"
     environment:
       POSTGRES_USER: _
       POSTGRES_DB: _
 
 networks:
   polling_network:
-
-volumes:
-  polling_data:
-  
